@@ -9,7 +9,7 @@
 
 class Transform {
 public:
-    Transform() = default;
+	Transform() {};
     glm::tvec2<float> movePosition(glm::tvec2<float> delta) { return setPosition(position + delta); }
 
     const glm::tvec2<float> getPosition() const { return position; }
@@ -19,7 +19,7 @@ public:
         return position;
     }
 private:
-    glm::tvec2<float> position;
+	glm::tvec2<float> position = { 0.0f, 0.0f };
 };
 
 

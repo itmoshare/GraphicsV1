@@ -15,11 +15,10 @@ public:
     void initialize(HWND hwnd);
 
     void redraw(const GameState &gameState);
-    void drawPlayer(const Player & player);
     void beginGraphics();
     void endGraphics();
 
-	const auto & getWindowSize() const { return glm::tvec2<int32_t>(windowWidth, windowHeight); }
+	const auto getWindowSize() const { return glm::tvec2<int32_t>(windowWidth, windowHeight); }
 private:
     HWND hwnd;
     HDC hdc;

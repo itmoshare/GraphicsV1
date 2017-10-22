@@ -22,18 +22,18 @@ void MainRender::initialize(HWND hwnd)
     SelectObject(backbufferDC, bitmap);
 }
 
-void MainRender::redraw(const GameState &gameState)
+void MainRender::redraw(const GameState & gameState)
 {
     beginGraphics();
 
-    drawPlayer(gameState.player);
+	gameState.player.getRender().render(backbufferDC);
+
+	for (auto const &dropItem : gameState.dropItems)
+	{
+		dropItem->getRender().render(backbufferDC);
+	}
 
     endGraphics();
-}
-
-void MainRender::drawPlayer(const Player & player)
-{
-    player.getRender().render(backbufferDC);
 }
 
 void MainRender::beginGraphics()

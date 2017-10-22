@@ -5,13 +5,22 @@
 #ifndef GRAPHICSV1_GAMESTATE_H
 #define GRAPHICSV1_GAMESTATE_H
 
-
-#include "Player.h"
+#include "GameObject.h"
+#include <memory>
+#include <list>
 
 class GameState {
 public:
-    Player player;
+	using GameObjectList = std::list<std::unique_ptr<GameObject>>;
+    GameObject player;
     bool gameOver;
+	GameObjectList dropItems;
+
+	int32_t lastFruitSpawned = 0;
+	int32_t spawnEvery = 120;
+	int32_t spawnIncEvery = 300;
+	float fallSpeed = 2.0f;
+	int32_t fallSpeedIncEvery = 300;
 };
 
 

@@ -76,6 +76,9 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -116,8 +119,9 @@
   <ItemGroup>
     <ClInclude Include="..\..\src\CGame.h" />
     <ClInclude Include="..\..\src\Colliders\BoxCollider.h" />
+    <ClInclude Include="..\..\src\FruitsController.h" />
+    <ClInclude Include="..\..\src\GameObject.h" />
     <ClInclude Include="..\..\src\GameState.h" />
-    <ClInclude Include="..\..\src\Player.h" />
     <ClInclude Include="..\..\src\Renders\ImageRender.h" />
     <ClInclude Include="..\..\src\Renders\MainRender.h" />
     <ClInclude Include="..\..\src\Transform.h" />
@@ -126,9 +130,10 @@
   <ItemGroup>
     <ClCompile Include="..\..\src\CGame.cpp" />
     <ClCompile Include="..\..\src\Colliders\BoxCollider.cpp" />
+    <ClCompile Include="..\..\src\FruitsController.cpp" />
+    <ClCompile Include="..\..\src\GameObject.cpp" />
     <ClCompile Include="..\..\src\GameState.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
-    <ClCompile Include="..\..\src\Player.cpp" />
     <ClCompile Include="..\..\src\Renders\ImageRender.cpp" />
     <ClCompile Include="..\..\src\Renders\MainRender.cpp" />
     <ClCompile Include="..\..\src\Transform.cpp" />

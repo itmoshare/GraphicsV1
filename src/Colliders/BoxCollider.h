@@ -14,6 +14,8 @@ public:
 
 	const auto getLeftDownCornerGlobal() const { return getLeftDownCornerLocal() + transfotm.getPosition(); }
 	const auto getRightTopCornerGlobal() const { return getRightTopCornerLocal() + transfotm.getPosition(); }
+
+	void fitSize(glm::tvec2<float> size);
 private:
 	const Transform & transfotm;
 

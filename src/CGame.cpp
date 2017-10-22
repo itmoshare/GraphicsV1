@@ -6,10 +6,11 @@
 #include "CGame.h"
 #include "UserInput.h"
 #include <thread>
+#include <memory>
 #include <glm/glm.hpp>
 
 // Constructor
-CGame::CGame()
+CGame::CGame() : fruitsController(gameState.dropItems, {"D:/projects/GraphicsV1/images/fruit_1.bmp"})
 {
 }
 
@@ -22,13 +23,15 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 	
 	auto wndSize = render.getWindowSize();
 
-	gameState.player.getRenderMut().setImagePath("D:/projects/GraphicsV1/images/basket.bmp");
-	gameState.player.getRenderMut().setSize(glm::tvec2<float>(50, 24));
+	gameState.player.getRenderMut().loadImage("D:/projects/GraphicsV1/images/basket.bmp");
+	gameState.player.getRenderMut().fitImageSize();
 
-	gameState.player.getColliderMut().setLeftDownCornerLocal(glm::tvec2<float>(-25, -12));
-	gameState.player.getColliderMut().setRightTopCornerLocal(glm::tvec2<float>(25, 12));
+	gameState.player.getColliderMut().fitSize(gameState.player.getRender().getSize());
 
 	gameState.player.getTransformMut().setPosition(glm::tvec2<float>(wndSize.x / 2, wndSize.y - gameState.player.getRender().getSize().y / 2));
+
+	fruitsController.setMinX(0);
+	fruitsController.setMaxX((float)wndSize.x);
 
 	gameState.gameOver = false;
 
@@ -68,10 +71,19 @@ void CGame::StartLoop()
 		if (LockFrameRate(60))
 		{
 			handleUserInput();
+			frameTick();
 			this->render.redraw(gameState);
 		}
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
+}
+
+void CGame::frameTick()
+{
+	frame++;
+	handleFruitsSpeed(frame);
+	handleFruitsSpawn(frame);
+	handleFruitsMove();
 }
 
 void CGame::handleUserInput()
@@ -81,16 +93,49 @@ void CGame::handleUserInput()
     } else if (UserInput::IsKeyDown(VK_RIGHT)) {
 		if (gameState.player.getCollider().getRightTopCornerGlobal().x < render.getWindowSize().x)
 		{
-			gameState.player.getTransformMut().movePosition(glm::tvec2<float>(5, 0));
+			gameState.player.getTransformMut().movePosition(glm::tvec2<float>(7, 0));
 		}
     } else if (UserInput::IsKeyDown(VK_DOWN)) {
 
     } else if (UserInput::IsKeyDown(VK_LEFT)) {
 		if (gameState.player.getCollider().getLeftDownCornerGlobal().x > 0)
 		{
-			gameState.player.getTransformMut().movePosition(glm::tvec2<float>(-5, 0));
+			gameState.player.getTransformMut().movePosition(glm::tvec2<float>(-7, 0));
 		}
     }
 
     UserInput::HandleWindowsMessages();
+}
+
+void CGame::handleFruitsSpawn(const int32_t frame)
+{
+	if (frame - gameState.lastFruitSpawned > gameState.spawnEvery)
+	{
+		fruitsController.spawnRandomFruit();
+		gameState.lastFruitSpawned = frame;
+	}
+}
+
+void CGame::handleFruitsSpeed(const int32_t frame)
+{
+	if (frame % gameState.spawnIncEvery == 0)
+	{
+		gameState.spawnEvery -= 10;
+		if (gameState.spawnEvery < 1)
+			gameState.spawnEvery = 1;
+	}
+	if (frame % gameState.fallSpeedIncEvery == 0)
+	{
+		gameState.fallSpeed += 1;
+	}
+	//gameState.spawnEvery = (int32_t)round(300 / (pow(frame, 0.2f) + 1));
+	//gameState.fallSpeed = gameState.maxFallSpeed / (gameState.maxFallSpeed - frame);
+}
+
+void CGame::handleFruitsMove()
+{
+	for (auto & fruit : gameState.dropItems)
+	{
+		fruit.get()->getTransformMut().movePosition(glm::tvec2<float>(0, gameState.fallSpeed));
+	}
 }

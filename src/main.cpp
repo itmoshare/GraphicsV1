@@ -1,5 +1,6 @@
 #include "windows.h"
 #include "CGame.h"
+#include <ctime>
 
 #define WIN_WID 640
 #define WIN_HGT 480
@@ -13,6 +14,8 @@ LRESULT CALLBACK WinProc(HWND hwnd, UINT message, WPARAM wparam, LPARAM lparam);
 
 HWND CreateMainWindow(LPSTR strWindowName, HINSTANCE hInstance)
 {
+	srand(time(NULL));
+
     WNDCLASSEX wndclassex = {0};
     char class_name[] = MAIN_WINDOW_CLASS_NAME;
 
