@@ -70,24 +70,6 @@ void CGame::StartLoop()
 			handleUserInput();
 			this->render.redraw(gameState);
 		}
-//        else if(win_obj.lockToFrameRate())
-//        {
-//            win_obj.clear();
-//
-//            process(win_obj.getDT());
-//            redraw();
-//
-//            // Draw frame rate
-//#ifdef DRAW_FPS
-//            win_obj.drawFPS();
-//#endif
-//
-//            win_obj.redraw(); // Draw the back buffer to the screen
-//
-//            SleepEx(1, true);  // Give OS a little time.  This makes the Task Manager CPU Usage not
-//            // spike at 100%.  **NOTE** This lowers overall frame rate and shouldn't
-//            // be done in a speed critical application
-//        }
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 }

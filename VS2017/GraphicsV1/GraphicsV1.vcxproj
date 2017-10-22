@@ -111,28 +111,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\CGame.cpp" />
-    <ClCompile Include="..\..\Colliders\BoxCollider.cpp" />
-    <ClCompile Include="..\..\GameState.cpp" />
-    <ClCompile Include="..\..\main.cpp" />
-    <ClCompile Include="..\..\Player.cpp" />
-    <ClCompile Include="..\..\Renders\ImageRender.cpp" />
-    <ClCompile Include="..\..\Renders\MainRender.cpp" />
-    <ClCompile Include="..\..\Transform.cpp" />
-    <ClCompile Include="..\..\UserInput.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\CGame.h" />
-    <ClInclude Include="..\..\Colliders\BoxCollider.h" />
-    <ClInclude Include="..\..\GameState.h" />
-    <ClInclude Include="..\..\Player.h" />
-    <ClInclude Include="..\..\Renders\ImageRender.h" />
-    <ClInclude Include="..\..\Renders\MainRender.h" />
-    <ClInclude Include="..\..\Transform.h" />
-    <ClInclude Include="..\..\UserInput.h" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\src\CGame.h" />
+    <ClInclude Include="..\..\src\Colliders\BoxCollider.h" />
+    <ClInclude Include="..\..\src\GameState.h" />
+    <ClInclude Include="..\..\src\Player.h" />
+    <ClInclude Include="..\..\src\Renders\ImageRender.h" />
+    <ClInclude Include="..\..\src\Renders\MainRender.h" />
+    <ClInclude Include="..\..\src\Transform.h" />
+    <ClInclude Include="..\..\src\UserInput.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\src\CGame.cpp" />
+    <ClCompile Include="..\..\src\Colliders\BoxCollider.cpp" />
+    <ClCompile Include="..\..\src\GameState.cpp" />
+    <ClCompile Include="..\..\src\main.cpp" />
+    <ClCompile Include="..\..\src\Player.cpp" />
+    <ClCompile Include="..\..\src\Renders\ImageRender.cpp" />
+    <ClCompile Include="..\..\src\Renders\MainRender.cpp" />
+    <ClCompile Include="..\..\src\Transform.cpp" />
+    <ClCompile Include="..\..\src\UserInput.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
