@@ -35,6 +35,29 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
     return true;
 }
 
+bool LockFrameRate(int frameRate)
+{
+	static float lastTime = GetTickCount() * 0.001f;
+	static float elapsedTime = 0.0f;
+
+	float currentTime = GetTickCount() * 0.001f;	// Get the time (milliseconds = seconds * .001)
+	float deltaTime = currentTime - lastTime;		// Get the slice of time
+	float desiredFPS = 1.0f / frameRate;			// Store 1 / desiredFrameRate
+
+	elapsedTime += deltaTime;						// Add to the elapsed time
+	lastTime = currentTime;							// Update lastTime
+
+													// Check if the time since we last checked is greater than our desiredFPS
+	if (elapsedTime > desiredFPS)
+	{
+		elapsedTime -= desiredFPS; // Adjust our elapsed time
+		return true; // Time to draw
+	}
+
+	// Still waiting...
+	return false;
+}
+
 // Run the game -- This is the game loop
 void CGame::StartLoop()
 {
@@ -42,8 +65,11 @@ void CGame::StartLoop()
 
     while(gameState.gameOver == false)
     {
-        handleUserInput();
-        this->render.redraw(gameState);
+		if (LockFrameRate(60))
+		{
+			handleUserInput();
+			this->render.redraw(gameState);
+		}
 //        else if(win_obj.lockToFrameRate())
 //        {
 //            win_obj.clear();
@@ -62,7 +88,7 @@ void CGame::StartLoop()
 //            // spike at 100%.  **NOTE** This lowers overall frame rate and shouldn't
 //            // be done in a speed critical application
 //        }
-        std::this_thread::sleep_for(std::chrono::milliseconds(5));
+        std::this_thread::sleep_for(std::chrono::milliseconds(1));
     }
 }
 
@@ -73,14 +99,14 @@ void CGame::handleUserInput()
     } else if (UserInput::IsKeyDown(VK_RIGHT)) {
 		if (gameState.player.getCollider().getRightTopCornerGlobal().x < render.getWindowSize().x)
 		{
-			gameState.player.getTransformMut().movePosition(glm::tvec2<float>(1, 0));
+			gameState.player.getTransformMut().movePosition(glm::tvec2<float>(5, 0));
 		}
     } else if (UserInput::IsKeyDown(VK_DOWN)) {
 
     } else if (UserInput::IsKeyDown(VK_LEFT)) {
 		if (gameState.player.getCollider().getLeftDownCornerGlobal().x > 0)
 		{
-			gameState.player.getTransformMut().movePosition(glm::tvec2<float>(-1, 0));
+			gameState.player.getTransformMut().movePosition(glm::tvec2<float>(-5, 0));
 		}
     }
 
