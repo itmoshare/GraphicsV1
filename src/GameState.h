@@ -15,12 +15,22 @@ public:
     GameObject player;
     bool gameOver;
 	GameObjectList dropItems;
+	
+	void decLive() 
+	{ 
+		lives--; 
+		if (lives == 0)
+			gameOver = true;
+	}
+	const auto getLives() const { return lives; }
 
 	int32_t lastFruitSpawned = 0;
 	int32_t spawnEvery = 120;
 	int32_t spawnIncEvery = 300;
 	float fallSpeed = 2.0f;
 	int32_t fallSpeedIncEvery = 300;
+private:
+	int32_t lives = 5;
 };
 
 

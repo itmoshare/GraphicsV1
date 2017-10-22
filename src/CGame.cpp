@@ -10,7 +10,7 @@
 #include <glm/glm.hpp>
 
 // Constructor
-CGame::CGame() : fruitsController(gameState.dropItems, {"D:/projects/GraphicsV1/images/fruit_1.bmp"})
+CGame::CGame() : fruitsBuilder(gameState.dropItems, {"D:/projects/GraphicsV1/images/fruit_1.bmp"})
 {
 }
 
@@ -30,8 +30,8 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 
 	gameState.player.getTransformMut().setPosition(glm::tvec2<float>(wndSize.x / 2, wndSize.y - gameState.player.getRender().getSize().y / 2));
 
-	fruitsController.setMinX(0);
-	fruitsController.setMaxX((float)wndSize.x);
+	fruitsBuilder.setMinX(0);
+	fruitsBuilder.setMaxX((float)wndSize.x);
 
 	gameState.gameOver = false;
 
@@ -111,7 +111,7 @@ void CGame::handleFruitsSpawn(const int32_t frame)
 {
 	if (frame - gameState.lastFruitSpawned > gameState.spawnEvery)
 	{
-		fruitsController.spawnRandomFruit();
+		fruitsBuilder.spawnRandomFruit();
 		gameState.lastFruitSpawned = frame;
 	}
 }
@@ -134,8 +134,19 @@ void CGame::handleFruitsSpeed(const int32_t frame)
 
 void CGame::handleFruitsMove()
 {
-	for (auto & fruit : gameState.dropItems)
+	auto it = gameState.dropItems.begin();
+	while (it != gameState.dropItems.end())
 	{
-		fruit.get()->getTransformMut().movePosition(glm::tvec2<float>(0, gameState.fallSpeed));
+		it->get()->getTransformMut().movePosition(glm::tvec2<float>(0, gameState.fallSpeed));
+		auto collider = it->get()->getCollider();
+		if (collider.getRightTopCornerGlobal().y >= render.getWindowSize().y)
+		{
+			it = gameState.dropItems.erase(it);
+			gameState.decLive();
+		}
+		else
+		{
+			it++;
+		}
 	}
 }

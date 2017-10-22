@@ -9,7 +9,7 @@
 #include "GameObject.h"
 #include "Renders/MainRender.h"
 #include "GameState.h"
-#include "FruitsController.h"
+#include "FruitsBuilder.h"
 
 class CGame {
 public:
@@ -23,12 +23,13 @@ public:
 	void CGame::handleFruitsSpawn(const int32_t frame);
 	void CGame::handleFruitsMove();
 	void CGame::handleFruitsSpeed(const int32_t frame);
+
 private:
     MainRender render;
 
     void handleUserInput();
     GameState gameState; // All other game data
-	FruitsController fruitsController;
+	FruitsBuilder fruitsBuilder;
 
 	int32_t frame = 1;
 };
