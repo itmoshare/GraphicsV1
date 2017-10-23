@@ -5,37 +5,50 @@
 #include <chrono>
 #include "CGame.h"
 #include "UserInput.h"
+#include "Renders/UITextRender.h"
 #include <thread>
 #include <memory>
 #include <glm/glm.hpp>
+#include <string>
 
 // Constructor
-CGame::CGame() : fruitsBuilder(gameState.dropItems, {"D:/projects/GraphicsV1/images/fruit_1.bmp"})
+CGame::CGame() : fruitsBuilder(gameState.dropItems, { "D:/projects/GraphicsV1/images/fruit_1.bmp" })
 {
 }
 
 bool CGame::init(HWND hwnd, HINSTANCE hinst)
 {
-    if(hwnd == NULL || hinst == NULL)
-        return false;
+	if (hwnd == NULL || hinst == NULL)
+		return false;
 
-    this->render.initialize(hwnd);
-	
+	this->render.initialize(hwnd);
+
 	auto wndSize = render.getWindowSize();
+	
+	auto *playerRender = new ImageRender(gameState.player.getTransformMut());
+	playerRender->loadImage("D:/projects/GraphicsV1/images/basket.bmp");
+	playerRender->fitImageSize();
+	gameState.player.setRender(std::unique_ptr<IRender>(playerRender));
 
-	gameState.player.getRenderMut().loadImage("D:/projects/GraphicsV1/images/basket.bmp");
-	gameState.player.getRenderMut().fitImageSize();
+	gameState.player.getColliderMut().fitSize(playerRender->getSize());
+	gameState.player.getTransformMut().setPosition(glm::tvec2<float>(wndSize.x / 2, wndSize.y - playerRender->getSize().y / 2));
 
-	gameState.player.getColliderMut().fitSize(gameState.player.getRender().getSize());
-
-	gameState.player.getTransformMut().setPosition(glm::tvec2<float>(wndSize.x / 2, wndSize.y - gameState.player.getRender().getSize().y / 2));
+	gameState.bottom.getTransformMut().setPosition(glm::tvec2<float>(0, 0));
+	gameState.bottom.getColliderMut().setLeftDownCornerLocal(glm::tvec2<float>(0, wndSize.y + 1));
+	gameState.bottom.getColliderMut().setRightTopCornerLocal(glm::tvec2<float>(wndSize.x, wndSize.y));
+	
+	auto * livesUIRender = new UITextRender();
+	livesUIRender->setLeft(10);
+	livesUIRender->setTop(10);
+	livesUIRender->setText(std::to_string(gameState.getLives()));
+	gameState.livesUI.setRender(std::unique_ptr<IRender>(livesUIRender));
 
 	fruitsBuilder.setMinX(0);
 	fruitsBuilder.setMaxX((float)wndSize.x);
 
 	gameState.gameOver = false;
 
-    return true;
+	return true;
 }
 
 bool LockFrameRate(int frameRate)
@@ -64,18 +77,18 @@ bool LockFrameRate(int frameRate)
 // Run the game -- This is the game loop
 void CGame::StartLoop()
 {
-    MSG msg = {0};
+	MSG msg = { 0 };
 
-    while(gameState.gameOver == false)
-    {
+	while (gameState.gameOver == false)
+	{
 		if (LockFrameRate(60))
 		{
 			handleUserInput();
 			frameTick();
 			this->render.redraw(gameState);
 		}
-        std::this_thread::sleep_for(std::chrono::milliseconds(1));
-    }
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
+	}
 }
 
 void CGame::frameTick()
@@ -88,23 +101,26 @@ void CGame::frameTick()
 
 void CGame::handleUserInput()
 {
-    if (UserInput::IsKeyDown(VK_UP)){
+	if (UserInput::IsKeyDown(VK_UP)) {
 
-    } else if (UserInput::IsKeyDown(VK_RIGHT)) {
+	}
+	else if (UserInput::IsKeyDown(VK_RIGHT)) {
 		if (gameState.player.getCollider().getRightTopCornerGlobal().x < render.getWindowSize().x)
 		{
 			gameState.player.getTransformMut().movePosition(glm::tvec2<float>(7, 0));
 		}
-    } else if (UserInput::IsKeyDown(VK_DOWN)) {
+	}
+	else if (UserInput::IsKeyDown(VK_DOWN)) {
 
-    } else if (UserInput::IsKeyDown(VK_LEFT)) {
+	}
+	else if (UserInput::IsKeyDown(VK_LEFT)) {
 		if (gameState.player.getCollider().getLeftDownCornerGlobal().x > 0)
 		{
 			gameState.player.getTransformMut().movePosition(glm::tvec2<float>(-7, 0));
 		}
-    }
+	}
 
-    UserInput::HandleWindowsMessages();
+	UserInput::HandleWindowsMessages();
 }
 
 void CGame::handleFruitsSpawn(const int32_t frame)
@@ -139,14 +155,18 @@ void CGame::handleFruitsMove()
 	{
 		it->get()->getTransformMut().movePosition(glm::tvec2<float>(0, gameState.fallSpeed));
 		auto collider = it->get()->getCollider();
-		if (collider.getRightTopCornerGlobal().y >= render.getWindowSize().y)
+		if (BoxCollider::areInterset(collider, gameState.player.getCollider()))
+		{
+			it = gameState.dropItems.erase(it);
+			return;
+		}
+		if (BoxCollider::areInterset(collider, gameState.bottom.getCollider()))
 		{
 			it = gameState.dropItems.erase(it);
 			gameState.decLive();
+			dynamic_cast<UITextRender*>(gameState.livesUI.getRenderMut())->setText(std::to_string(gameState.getLives()));
+			return;
 		}
-		else
-		{
-			it++;
-		}
+		it++;
 	}
 }

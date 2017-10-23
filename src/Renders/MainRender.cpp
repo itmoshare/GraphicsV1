@@ -26,12 +26,14 @@ void MainRender::redraw(const GameState & gameState)
 {
     beginGraphics();
 
-	gameState.player.getRender().render(backbufferDC);
+	gameState.player.getRender()->render(backbufferDC);
 
 	for (auto const &dropItem : gameState.dropItems)
 	{
-		dropItem->getRender().render(backbufferDC);
+		dropItem->getRender()->render(backbufferDC);
 	}
+
+	gameState.livesUI.getRender()->render(backbufferDC);
 
     endGraphics();
 }

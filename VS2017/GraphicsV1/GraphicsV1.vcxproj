@@ -75,6 +75,8 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <Link>
       <AdditionalDependencies>msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -124,7 +126,9 @@
     <ClInclude Include="..\..\src\GameObject.h" />
     <ClInclude Include="..\..\src\GameState.h" />
     <ClInclude Include="..\..\src\Renders\ImageRender.h" />
+    <ClInclude Include="..\..\src\Renders\IRender.h" />
     <ClInclude Include="..\..\src\Renders\MainRender.h" />
+    <ClInclude Include="..\..\src\Renders\UITextRender.h" />
     <ClInclude Include="..\..\src\Transform.h" />
     <ClInclude Include="..\..\src\UserInput.h" />
   </ItemGroup>
@@ -138,6 +142,7 @@
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\Renders\ImageRender.cpp" />
     <ClCompile Include="..\..\src\Renders\MainRender.cpp" />
+    <ClCompile Include="..\..\src\Renders\UITextRender.cpp" />
     <ClCompile Include="..\..\src\Transform.cpp" />
     <ClCompile Include="..\..\src\UserInput.cpp" />
   </ItemGroup>

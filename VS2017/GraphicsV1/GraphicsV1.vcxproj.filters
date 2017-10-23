@@ -60,6 +60,12 @@
     <ClInclude Include="..\..\src\FruitsController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\Renders\UITextRender.h">
+      <Filter>Header Files\Renders</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\Renders\IRender.h">
+      <Filter>Header Files\Renders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Colliders\BoxCollider.cpp">
@@ -94,6 +100,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\FruitsController.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\Renders\UITextRender.cpp">
+      <Filter>Source Files\Renders</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

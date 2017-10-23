@@ -13,6 +13,8 @@ class GameState {
 public:
 	using GameObjectList = std::list<std::unique_ptr<GameObject>>;
     GameObject player;
+	GameObject bottom;
+	GameObject livesUI;
     bool gameOver;
 	GameObjectList dropItems;
 	

@@ -9,8 +9,9 @@
 #include <windows.h>
 #include "../Transform.h"
 #include <glm/glm.hpp>
+#include "IRender.h"
 
-class ImageRender {
+class ImageRender : public IRender {
 public:
     ImageRender(const Transform & position);
     const auto & getImagePath() const
