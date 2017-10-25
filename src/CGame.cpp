@@ -12,7 +12,12 @@
 #include <string>
 
 // Constructor
-CGame::CGame() : fruitsBuilder(gameState.dropItems, { "D:/projects/GraphicsV1/images/fruit_1.bmp" })
+CGame::CGame() : fruitsBuilder(gameState.dropItems, 
+{ 
+	"D:/projects/GraphicsV1/images/fruit_1.bmp", 
+	"D:/projects/GraphicsV1/images/watermelon.bmp",
+	"D:/projects/GraphicsV1/images/pear.bmp"
+})
 {
 }
 
