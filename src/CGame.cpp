@@ -6,6 +6,8 @@
 #include "CGame.h"
 #include "UserInput.h"
 #include "Renders/UITextRender.h"
+#include "Renders/UIDiTextRender.h"
+#include "Renders/ImageDiRender.h"
 #include <thread>
 #include <memory>
 #include <glm/glm.hpp>
@@ -30,7 +32,8 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 	gameState.mainCamera.setBackBrush(CreateSolidBrush(RGB(255, 255, 255)));
 	auto wndSize = gameState.mainCamera.getSize();
 
-	auto *playerRender = new ImageRender(gameState.player.getTransformMut());
+	/*auto *playerRender = new ImageRender(gameState.player.getTransformMut());*/
+	auto *playerRender = new ImageDiRender(gameState.player.getTransformMut());
 	playerRender->loadImage("D:/projects/GraphicsV1/images/basket.bmp");
 	playerRender->fitImageSize();
 	gameState.player.setRender(std::unique_ptr<IRender>(playerRender));
@@ -42,7 +45,8 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 	gameState.bottom.getColliderMut().setLeftDownCornerLocal(glm::tvec2<float>(0, 0));
 	gameState.bottom.getColliderMut().setRightTopCornerLocal(glm::tvec2<float>(wndSize.x, 1));
 	
-	auto * livesUIRender = new UITextRender();
+	//auto * livesUIRender = new UITextRender();
+	auto * livesUIRender = new UIDiTextRender();
 	livesUIRender->setLeft(10);
 	livesUIRender->setTop(10);
 	livesUIRender->setText(std::to_string(gameState.getLives()) + " lives");
@@ -178,7 +182,8 @@ void CGame::handleFruitsMove()
 		{
 			it = gameState.dropItems.erase(it);
 			gameState.decLive();
-			dynamic_cast<UITextRender*>(gameState.livesUI.getRenderMut())->setText(std::to_string(gameState.getLives()) + " lives");
+			//dynamic_cast<UITextRender*>(gameState.livesUI.getRenderMut())->setText(std::to_string(gameState.getLives()) + " lives");
+			dynamic_cast<UIDiTextRender*>(gameState.livesUI.getRenderMut())->setText(std::to_string(gameState.getLives()) + " lives");
 			return;
 		}
 		it++;

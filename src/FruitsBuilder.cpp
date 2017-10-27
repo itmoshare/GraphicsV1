@@ -14,7 +14,8 @@ void FruitsBuilder::spawnRandomFruit()
 void FruitsBuilder::spawnFruit(float xPos, std::string imagePath)
 {
 	std::unique_ptr<GameObject> dropItem(new GameObject());
-	auto * imgRender = new ImageRender(dropItem->getTransformMut());
+	//auto * imgRender = new ImageRender(dropItem->getTransformMut());
+	auto * imgRender = new ImageDiRender(dropItem->getTransformMut());
 	imgRender->loadImage(imagePath);
 	imgRender->fitImageSize();
 	dropItem->setRender(std::unique_ptr<IRender>(imgRender));
