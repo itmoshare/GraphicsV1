@@ -13,9 +13,12 @@ public:
 	void spawnRandomFruit();
 	void setMinX(const float value) { minX = value; }
 	void setMaxX(const float value) { maxX = value; }
+
+	void setYSpawn(const float value) { ySpawn = value; }
 private:
 	void spawnFruit(float xPos, std::string imagePath);
 
+	float ySpawn = 0;
 	float minX = 0;
 	float maxX = 1;
 	std::vector<std::string> imagePaths;

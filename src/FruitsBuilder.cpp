@@ -22,7 +22,7 @@ void FruitsBuilder::spawnFruit(float xPos, std::string imagePath)
 	auto size = imgRender->getSize();
 	dropItem->getColliderMut().fitSize(size);
 
-	dropItem->getTransformMut().setPosition(glm::tvec2<float>(xPos, -50));
+	dropItem->getTransformMut().setPosition(glm::tvec2<float>(xPos, ySpawn));
 
 	this->gameObjects.push_back(std::move(dropItem));
 }

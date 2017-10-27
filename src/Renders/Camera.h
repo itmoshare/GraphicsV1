@@ -19,6 +19,8 @@ public:
 	void beginRender();
 	void endRender();
 
+	const glm::tvec2<int32_t> transformGlobalToCamera(glm::tvec2<float> globalCoord) const;
+
 	~Camera();
 private:
 	HWND hwnd;

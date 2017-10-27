@@ -35,6 +35,11 @@ void Camera::endRender()
 	BitBlt(mainDC, 0, 0, size.x, size.y, backDC, 0, 0, SRCCOPY);
 }
 
+const glm::tvec2<int32_t> Camera::transformGlobalToCamera(glm::tvec2<float> globalCoord) const
+{
+	return glm::tvec2<int32_t>(globalCoord.x, size.y - globalCoord.y);
+}
+
 Camera::~Camera()
 {
 	unInitialize();

@@ -36,11 +36,11 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 	gameState.player.setRender(std::unique_ptr<IRender>(playerRender));
 
 	gameState.player.getColliderMut().fitSize(glm::tvec2<float>(playerRender->getSize().x, playerRender->getSize().y / 3));
-	gameState.player.getTransformMut().setPosition(glm::tvec2<float>(wndSize.x / 2, wndSize.y - playerRender->getSize().y / 2));
+	gameState.player.getTransformMut().setPosition(glm::tvec2<float>(wndSize.x / 2, playerRender->getSize().y / 2));
 
-	gameState.bottom.getTransformMut().setPosition(glm::tvec2<float>(wndSize.x / 2, wndSize.y + 10));
-	gameState.bottom.getColliderMut().setLeftDownCornerLocal(glm::tvec2<float>(-wndSize.x / 2, -1));
-	gameState.bottom.getColliderMut().setRightTopCornerLocal(glm::tvec2<float>(wndSize.x / 2, 1));
+	gameState.bottom.getTransformMut().setPosition(glm::tvec2<float>(0, -25));
+	gameState.bottom.getColliderMut().setLeftDownCornerLocal(glm::tvec2<float>(0, 0));
+	gameState.bottom.getColliderMut().setRightTopCornerLocal(glm::tvec2<float>(wndSize.x, 1));
 	
 	auto * livesUIRender = new UITextRender();
 	livesUIRender->setLeft(10);
@@ -50,6 +50,7 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 
 	fruitsBuilder.setMinX(50);
 	fruitsBuilder.setMaxX((float)wndSize.x - 50);
+	fruitsBuilder.setYSpawn((float)wndSize.y + 50);
 
 	gameState.gameOver = false;
 
@@ -166,7 +167,7 @@ void CGame::handleFruitsMove()
 	auto it = gameState.dropItems.begin();
 	while (it != gameState.dropItems.end())
 	{
-		it->get()->getTransformMut().movePosition(glm::tvec2<float>(0, gameState.fallSpeed));
+		it->get()->getTransformMut().movePosition(glm::tvec2<float>(0, -gameState.fallSpeed));
 		auto collider = it->get()->getCollider();
 		if (BoxCollider::areIntersect(collider, gameState.player.getCollider()))
 		{

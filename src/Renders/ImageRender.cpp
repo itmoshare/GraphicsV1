@@ -28,7 +28,7 @@ void ImageRender::fitImageSize()
 
 void ImageRender::render(const Camera & camera) const
 {
-    auto pos = transform.getPosition();
+    auto pos = camera.transformGlobalToCamera(transform.getPosition());
     BITMAP info = {0};
 
     // Get the bitmap's information
