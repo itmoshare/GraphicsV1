@@ -8,6 +8,7 @@
 #include "GameObject.h"
 #include <memory>
 #include <list>
+#include "Renders/Camera.h"
 
 class GameState {
 public:
@@ -15,9 +16,10 @@ public:
     GameObject player;
 	GameObject bottom;
 	GameObject livesUI;
-    bool gameOver;
 	GameObjectList dropItems;
 	
+	Camera mainCamera;
+
 	void decLive() 
 	{ 
 		lives--; 
@@ -31,6 +33,7 @@ public:
 	int32_t spawnIncEvery = 300;
 	float fallSpeed = 2.0f;
 	int32_t fallSpeedIncEvery = 300;
+	bool gameOver;
 private:
 	int32_t lives = 5;
 };

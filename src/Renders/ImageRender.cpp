@@ -26,7 +26,7 @@ void ImageRender::fitImageSize()
 	this->setSize(glm::tvec2<int>(info.bmWidth, info.bmHeight));
 }
 
-void ImageRender::render(HDC hdc) const
+void ImageRender::render(const Camera & camera) const
 {
     auto pos = transform.getPosition();
     BITMAP info = {0};
@@ -36,6 +36,7 @@ void ImageRender::render(HDC hdc) const
     auto hdcBitmap = CreateCompatibleDC(NULL);
     auto imgCopy = CopyImage(image, IMAGE_BITMAP, 0, 0, LR_DEFAULTSIZE);
     SelectObject(hdcBitmap, imgCopy);
+	auto hdc = camera.getBackDC();
 	//StretchBlt(hdc, static_cast<int>(round(pos.x) - size.x / 2), static_cast<int>(round(pos.y) - size.y / 2), size.x, size.y, hdcBitmap, 0, 0, info.bmWidth, info.bmHeight, SRCCOPY);
 	TransparentBlt(hdc, static_cast<int>(round(pos.x) - size.x / 2), static_cast<int>(round(pos.y) - size.y / 2), size.x, size.y, hdcBitmap, 0, 0, info.bmWidth, info.bmHeight, RGB(0, 0, 0));
 

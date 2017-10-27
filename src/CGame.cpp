@@ -26,10 +26,10 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 	if (hwnd == NULL || hinst == NULL)
 		return false;
 
-	this->render.initialize(hwnd);
+	gameState.mainCamera.initialize(hwnd);
+	gameState.mainCamera.setBackBrush(CreateSolidBrush(RGB(255, 255, 255)));
+	auto wndSize = gameState.mainCamera.getSize();
 
-	auto wndSize = render.getWindowSize();
-	
 	auto *playerRender = new ImageRender(gameState.player.getTransformMut());
 	playerRender->loadImage("D:/projects/GraphicsV1/images/basket.bmp");
 	playerRender->fitImageSize();
@@ -90,7 +90,15 @@ void CGame::StartLoop()
 		{
 			handleUserInput();
 			frameTick();
-			this->render.redraw(gameState);
+
+			gameState.mainCamera.beginRender();
+			gameState.player.getRender()->render(gameState.mainCamera);
+			for (auto const &dropItem : gameState.dropItems)
+			{
+				dropItem->getRender()->render(gameState.mainCamera);
+			}
+			gameState.livesUI.getRender()->render(gameState.mainCamera);
+			gameState.mainCamera.endRender();
 		}
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 	}
@@ -110,7 +118,7 @@ void CGame::handleUserInput()
 
 	}
 	else if (UserInput::IsKeyDown(VK_RIGHT)) {
-		if (gameState.player.getCollider().getRightTopCornerGlobal().x < render.getWindowSize().x)
+		if (gameState.player.getCollider().getRightTopCornerGlobal().x < gameState.mainCamera.getSize().x)
 		{
 			gameState.player.getTransformMut().movePosition(glm::tvec2<float>(7, 0));
 		}

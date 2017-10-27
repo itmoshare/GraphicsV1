@@ -7,7 +7,6 @@
 
 #include "windows.h"
 #include "GameObject.h"
-#include "Renders/MainRender.h"
 #include "GameState.h"
 #include "FruitsBuilder.h"
 
@@ -25,8 +24,6 @@ public:
 	void CGame::handleFruitsSpeed(const int32_t frame);
 
 private:
-    MainRender render;
-
     void handleUserInput();
     GameState gameState; // All other game data
 	FruitsBuilder fruitsBuilder;

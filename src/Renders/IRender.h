@@ -1,10 +1,11 @@
 #pragma once
 
 #include "windows.h"
+#include "Camera.h"
 
 class IRender
 {
 public:
-	virtual void render(HDC hdc) const = 0;
+	virtual void render(const Camera & camera) const = 0;
 	virtual ~IRender() { };
 };
