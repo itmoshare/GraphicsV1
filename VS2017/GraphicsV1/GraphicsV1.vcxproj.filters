@@ -66,10 +66,10 @@
     <ClInclude Include="..\..\src\Renders\Camera.h">
       <Filter>Header Files\Renders</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Renders\ImageDiRender.h">
+    <ClInclude Include="..\..\src\Renders\UIPixelsTextRender.h">
       <Filter>Header Files\Renders</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Renders\UIDiTextRender.h">
+    <ClInclude Include="..\..\src\Renders\ImagePixelsRender.h">
       <Filter>Header Files\Renders</Filter>
     </ClInclude>
   </ItemGroup>
@@ -110,10 +110,10 @@
     <ClCompile Include="..\..\src\Renders\Camera.cpp">
       <Filter>Source Files\Renders</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Renders\ImageDiRender.cpp">
+    <ClCompile Include="..\..\src\Renders\UIPixelsTextRender.cpp">
       <Filter>Source Files\Renders</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Renders\UIDiTextRender.cpp">
+    <ClCompile Include="..\..\src\Renders\ImagePixelsRender.cpp">
       <Filter>Source Files\Renders</Filter>
     </ClCompile>
   </ItemGroup>

@@ -4,7 +4,7 @@
 #include <list>
 #include "GameState.h"
 #include <memory>
-#include "Renders/ImageDiRender.h"
+#include "Renders/ImagePixelsRender.h"
 
 class FruitsBuilder
 {

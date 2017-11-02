@@ -4,10 +4,10 @@
 #include "../Transform.h"
 #include <string>
 
-class ImageDiRender : public IRender
+class ImagePixelsRender : public IRender
 {
 public:
-	ImageDiRender(const Transform & position);
+	ImagePixelsRender(const Transform & position);
 	const auto & getImagePath() const
 	{
 		return imagePath;

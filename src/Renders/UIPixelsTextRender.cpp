@@ -1,6 +1,6 @@
-#include "UIDiTextRender.h"
+#include "UIPixelsTextRender.h"
 
-void UIDiTextRender::render(const Camera & camera) const
+void UIPixelsTextRender::render(const Camera & camera) const
 {
 	RECT rectangle = { 0 };
 	rectangle.left = left;

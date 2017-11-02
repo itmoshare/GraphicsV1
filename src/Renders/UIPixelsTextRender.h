@@ -5,7 +5,7 @@
 #include <glm/glm.hpp>
 #include "IRender.h"
 
-class UIDiTextRender : public IRender
+class UIPixelsTextRender : public IRender
 {
 public:
 	void setText(const std::string text) { this->text = text; };
