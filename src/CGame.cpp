@@ -41,6 +41,8 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 	/*playerRender->loadImage("D:/projects/GraphicsV1/images/basket.bmp");
 	playerRender->fitImageSize();*/
 	playerRender->loadObj("D:/projects/GraphicsV1/objects/Apple/apple.obj");
+	playerRender->loadBmp("D:/projects/GraphicsV1/objects/Apple/Maps/skin.bmp");
+
 	gameState.player.setRender(std::unique_ptr<IRender>(playerRender));
 
 	gameState.player.getColliderMut().fitSize(glm::tvec2<float>(playerRender->getSize().x, playerRender->getSize().y / 3));

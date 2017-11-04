@@ -55,10 +55,11 @@ void Camera::initialize(HWND hwnd)
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glEnable(GL_LIGHTING);
+	glEnable(GL_CULL_FACE);
 
 	glewInit();
 
-	programID = LoadShaders("D:/projects/GraphicsV1/src/eggsFall.vert", "D:/projects/GraphicsV1/src/eggsFall.frag");
+	Camera::programID = LoadShaders("D:/projects/GraphicsV1/src/eggsFall.vert", "D:/projects/GraphicsV1/src/eggsFall.frag");
 }
 
 void Camera::unInitialize()

@@ -25,6 +25,7 @@ public:
         return objPath;
     };
 	void loadObj(std::string path);
+	void loadBmp(std::string path);
 	/*void loadImage(std::string path);
 	void fitImageSize();*/
     void render(const Camera & camera) const;
@@ -49,6 +50,12 @@ private:
 	);
 
 	GLuint vertexbuffer;
+	GLuint uvbuffer;
+	GLuint normalbuffer;
+	GLuint texture;
+
+	GLuint matrixID;
+	GLuint textureID;
 };
 
 
