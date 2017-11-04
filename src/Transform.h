@@ -12,6 +12,7 @@ public:
 	Transform() {};
     glm::tvec2<float> movePosition(glm::tvec2<float> delta) { return setPosition(position + delta); }
 
+	const auto getPosition3() const { return glm::vec3(position.x, position.y, 0); }
     const glm::tvec2<float> getPosition() const { return position; }
     glm::tvec2<float> setPosition(glm::tvec2<float> value)
     {

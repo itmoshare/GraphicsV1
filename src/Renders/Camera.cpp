@@ -54,6 +54,7 @@ void Camera::initialize(HWND hwnd)
 		
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
+	glEnable(GL_LIGHTING);
 
 	glewInit();
 

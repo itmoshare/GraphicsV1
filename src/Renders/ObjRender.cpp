@@ -11,28 +11,7 @@ void ObjRender::loadObj(std::string path)
 {
 	this->objPath = path;
 
-	//(void)loadOBJ(this->objPath.c_str(), vertices, uvs, normals);
-
-	/*vertices = {
-		glm::vec3(0.0f, 0.0f, 0.0f),
-		glm::vec3(400.0f, 0.0f, 0.0f),
-		glm::vec3(250.0f,  200.0f, 0.0f),
-	};*/
-	/*vertices = {
-		glm::vec3(-1.0f, -1.0f, 0.0f),
-		glm::vec3(1.0f, -1.0f, 0.0f),
-		glm::vec3(0.0f,  1.0f, 0.0f),
-	};*/
-	/*vertices = {
-		glm::vec3(0.0f, 0.0f, 0.0f),
-		glm::vec3(-100.0f, 0.0f, 0.0f),
-		glm::vec3(-50.0f,  100.0f, 0.0f),
-	};*/
-	vertices = {
-		glm::vec3(5.0f, -100.0f, 0.0f),
-		glm::vec3(0.0f, 100.0f, 0.0f),
-		glm::vec3(100.0f,  -100.0f, 0.0f),
-	};
+	(void)loadOBJ(this->objPath.c_str(), vertices, uvs, normals);
 
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
@@ -41,7 +20,7 @@ void ObjRender::loadObj(std::string path)
 
 void ObjRender::render(const Camera & camera) const
 {
-	glm::mat4 Model = glm::mat4(1.0f);
+	glm::mat4 Model = glm::translate(glm::mat4(1.0f), transform.getPosition3());
 	glm::mat4 MVP = camera.getProjectionMatrix() * camera.getViewMatrix() * Model;
 	// TODO: move
 	GLuint MatrixID = glGetUniformLocation(Camera::programID, "MVP");
@@ -50,12 +29,12 @@ void ObjRender::render(const Camera & camera) const
 	glEnableVertexAttribArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
 	glVertexAttribPointer(
-		0,                  // Атрибут 0. Подробнее об этом будет рассказано в части, посвященной шейдерам.
-		3,                  // Размер
-		GL_FLOAT,           // Тип
-		GL_FALSE,           // Указывает, что значения не нормализованы
-		0,                  // Шаг
-		(void*)0            // Смещение массива в буфере
+		0,                  
+		3,                  
+		GL_FLOAT,           
+		GL_FALSE,           
+		0,                  
+		(void*)0            
 	);
 	glDrawArrays(GL_TRIANGLES, 0, vertices.size());
 	glDisableVertexAttribArray(0);

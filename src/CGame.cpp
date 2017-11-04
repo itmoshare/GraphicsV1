@@ -29,7 +29,7 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 	gameState.mainCamera.initialize(hwnd);
 	gameState.mainCamera.setBackBrush(CreateSolidBrush(RGB(0, 200, 200)));
 	auto wndSize = gameState.mainCamera.getSize();
-	gameState.mainCamera.setProjectionMatrix(glm::perspective(glm::radians(45.0f), wndSize.x / (float)wndSize.y, 500.0f, 510.0f));
+	gameState.mainCamera.setProjectionMatrix(glm::perspective(glm::radians(45.0f), wndSize.x / (float)wndSize.y, 450.0f, 550.0f));
 	gameState.mainCamera.setViewMatrix(glm::lookAt(
 		glm::vec3(270, 0, 500.f),
 		glm::vec3(270, 0, 0),
