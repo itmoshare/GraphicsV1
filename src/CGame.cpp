@@ -28,16 +28,13 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 
 	gameState.mainCamera.initialize(hwnd);
 	gameState.mainCamera.setBackBrush(CreateSolidBrush(RGB(0, 200, 200)));
-	// Проекционная матрица : 45&deg; поле обзора, 4:3 соотношение сторон, диапазон : 0.1 юнит <-> 100 юнитов
-	gameState.mainCamera.setProjectionMatrix(glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f));
-	// Матрица камеры
-	gameState.mainCamera.setViewMatrix(glm::lookAt(
-		glm::vec3(4, 3, 3), // Камера находится в мировых координатах (4,3,3)
-		glm::vec3(0, 0, 0), // И направлена в начало координат
-		glm::vec3(0, 1, 0)  // "Голова" находится сверху
-	));
-
 	auto wndSize = gameState.mainCamera.getSize();
+	gameState.mainCamera.setProjectionMatrix(glm::perspective(glm::radians(45.0f), wndSize.x / (float)wndSize.y, 500.0f, 510.0f));
+	gameState.mainCamera.setViewMatrix(glm::lookAt(
+		glm::vec3(270, 0, 500.f),
+		glm::vec3(270, 0, 0),
+		glm::vec3(0, 1, 0)
+	));
 
 	/*auto *playerRender = new ImageRender(gameState.player.getTransformMut());*/
 	auto *playerRender = new ObjRender(gameState.player.getTransformMut());

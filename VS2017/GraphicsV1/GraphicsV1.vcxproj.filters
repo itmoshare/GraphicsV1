@@ -72,9 +72,6 @@
     <ClInclude Include="..\..\src\Renders\ObjRender.h">
       <Filter>Header Files\Renders</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\lib\tinyobjloader\tiny_obj_loader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\src\LoadShaders.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -122,7 +122,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\lib\tinyobjloader\tiny_obj_loader.h" />
     <ClInclude Include="..\..\src\CGame.h" />
     <ClInclude Include="..\..\src\Colliders\BoxCollider.h" />
     <ClInclude Include="..\..\src\FruitsBuilder.h" />

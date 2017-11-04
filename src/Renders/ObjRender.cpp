@@ -13,10 +13,25 @@ void ObjRender::loadObj(std::string path)
 
 	//(void)loadOBJ(this->objPath.c_str(), vertices, uvs, normals);
 
-	vertices = {
+	/*vertices = {
+		glm::vec3(0.0f, 0.0f, 0.0f),
+		glm::vec3(400.0f, 0.0f, 0.0f),
+		glm::vec3(250.0f,  200.0f, 0.0f),
+	};*/
+	/*vertices = {
 		glm::vec3(-1.0f, -1.0f, 0.0f),
 		glm::vec3(1.0f, -1.0f, 0.0f),
 		glm::vec3(0.0f,  1.0f, 0.0f),
+	};*/
+	/*vertices = {
+		glm::vec3(0.0f, 0.0f, 0.0f),
+		glm::vec3(-100.0f, 0.0f, 0.0f),
+		glm::vec3(-50.0f,  100.0f, 0.0f),
+	};*/
+	vertices = {
+		glm::vec3(5.0f, -100.0f, 0.0f),
+		glm::vec3(0.0f, 100.0f, 0.0f),
+		glm::vec3(100.0f,  -100.0f, 0.0f),
 	};
 
 	glGenBuffers(1, &vertexbuffer);
