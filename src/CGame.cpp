@@ -31,8 +31,8 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 	auto wndSize = gameState.mainCamera.getSize();
 	gameState.mainCamera.setProjectionMatrix(glm::perspective(glm::radians(45.0f), wndSize.x / (float)wndSize.y, 450.0f, 550.0f));
 	gameState.mainCamera.setViewMatrix(glm::lookAt(
-		glm::vec3(270, 0, 500.f),
-		glm::vec3(270, 0, 0),
+		glm::vec3(270, 150, 500.f),
+		glm::vec3(270, 150, 0),
 		glm::vec3(0, 1, 0)
 	));
 
@@ -40,8 +40,12 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 	auto *playerRender = new ObjRender(gameState.player.getTransformMut());
 	/*playerRender->loadImage("D:/projects/GraphicsV1/images/basket.bmp");
 	playerRender->fitImageSize();*/
-	playerRender->loadObj("D:/projects/GraphicsV1/objects/Apple/apple.obj");
-	playerRender->loadBmp("D:/projects/GraphicsV1/objects/Apple/Maps/skin.bmp");
+	/*playerRender->loadObj("D:/projects/GraphicsV1/objects/Apple/apple.obj");
+	playerRender->loadBmp("D:/projects/GraphicsV1/objects/Apple/Maps/skin.bmp");*/
+	playerRender->loadObj("D:/projects/GraphicsV1/objects/Basket/basket.obj");
+	playerRender->loadBmp("D:/projects/GraphicsV1/objects/Basket/wicker.bmp");
+	playerRender->setScale(glm::vec3(0.5f, 0.5f, 0.5f));
+	//playerRender->loadBmp("D:/projects/GraphicsV1/objects/Apple/Maps/skin.bmp");
 
 	gameState.player.setRender(std::unique_ptr<IRender>(playerRender));
 

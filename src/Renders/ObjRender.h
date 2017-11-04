@@ -11,6 +11,7 @@
 #include <string>
 #include "../Transform.h"
 #include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
 #include "IRender.h"
 #include <vector>
 #include <cstdio>
@@ -26,16 +27,16 @@ public:
     };
 	void loadObj(std::string path);
 	void loadBmp(std::string path);
-	/*void loadImage(std::string path);
-	void fitImageSize();*/
     void render(const Camera & camera) const;
 
 	void setSize(glm::tvec2<int32_t> value) { size = value; }
+	void setScale(glm::tvec3<float> value) { scale = glm::scale(value); }
 	const auto & getSize() const { return size; }
 private:
     const Transform & transform;
 	glm::tvec2<int32_t> size;
-    std::string objPath;
+	glm::mat4 scale = glm::scale(glm::vec3(1, 1, 1));
+	std::string objPath;
 
 	// Obj data
 	std::vector<glm::vec3> vertices;

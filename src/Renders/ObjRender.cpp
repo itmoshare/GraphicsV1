@@ -68,7 +68,7 @@ void ObjRender::loadBmp(std::string path)
 
 void ObjRender::render(const Camera & camera) const
 {
-	glm::mat4 Model = glm::translate(glm::mat4(1.0f), transform.getPosition3());
+	glm::mat4 Model = glm::mat4(1.0f) * glm::translate(transform.getPosition3()) * scale;
 	glm::mat4 MVP = camera.getProjectionMatrix() * camera.getViewMatrix() * Model;
 
 	glUniformMatrix4fv(matrixID, 1, GL_FALSE, &MVP[0][0]);
