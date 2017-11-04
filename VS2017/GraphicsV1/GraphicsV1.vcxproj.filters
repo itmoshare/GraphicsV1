@@ -28,13 +28,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="..\..\src\eggsFall.vert">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="..\..\src\eggsFall.frag">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\src\Colliders\BoxCollider.h">
       <Filter>Header Files\Colliders</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\src\Renders\ImageRender.h">
-      <Filter>Header Files\Renders</Filter>
     </ClInclude>
     <ClInclude Include="..\..\src\CGame.h">
       <Filter>Header Files</Filter>
@@ -66,19 +69,19 @@
     <ClInclude Include="..\..\src\Renders\Camera.h">
       <Filter>Header Files\Renders</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Renders\UIPixelsTextRender.h">
+    <ClInclude Include="..\..\src\Renders\ObjRender.h">
       <Filter>Header Files\Renders</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\src\Renders\ImagePixelsRender.h">
-      <Filter>Header Files\Renders</Filter>
+    <ClInclude Include="..\..\lib\tinyobjloader\tiny_obj_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\src\LoadShaders.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Colliders\BoxCollider.cpp">
       <Filter>Source Files\Colliders</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Renders\ImageRender.cpp">
-      <Filter>Source Files\Renders</Filter>
     </ClCompile>
     <ClCompile Include="..\..\src\CGame.cpp">
       <Filter>Source Files</Filter>
@@ -110,10 +113,7 @@
     <ClCompile Include="..\..\src\Renders\Camera.cpp">
       <Filter>Source Files\Renders</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\src\Renders\UIPixelsTextRender.cpp">
-      <Filter>Source Files\Renders</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\src\Renders\ImagePixelsRender.cpp">
+    <ClCompile Include="..\..\src\Renders\ObjRender.cpp">
       <Filter>Source Files\Renders</Filter>
     </ClCompile>
   </ItemGroup>

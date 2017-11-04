@@ -1,4 +1,4 @@
-//
+﻿//
 // Created by Dmitriy on 11.10.2017.
 //
 
@@ -6,8 +6,6 @@
 #include "CGame.h"
 #include "UserInput.h"
 #include "Renders/UITextRender.h"
-#include "Renders/UIPixelsTextRender.h"
-#include "Renders/ImagePixelsRender.h"
 #include <thread>
 #include <memory>
 #include <glm/glm.hpp>
@@ -29,13 +27,23 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 		return false;
 
 	gameState.mainCamera.initialize(hwnd);
-	gameState.mainCamera.setBackBrush(CreateSolidBrush(RGB(255, 255, 255)));
+	gameState.mainCamera.setBackBrush(CreateSolidBrush(RGB(0, 200, 200)));
+	// Проекционная матрица : 45&deg; поле обзора, 4:3 соотношение сторон, диапазон : 0.1 юнит <-> 100 юнитов
+	gameState.mainCamera.setProjectionMatrix(glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f));
+	// Матрица камеры
+	gameState.mainCamera.setViewMatrix(glm::lookAt(
+		glm::vec3(4, 3, 3), // Камера находится в мировых координатах (4,3,3)
+		glm::vec3(0, 0, 0), // И направлена в начало координат
+		glm::vec3(0, 1, 0)  // "Голова" находится сверху
+	));
+
 	auto wndSize = gameState.mainCamera.getSize();
 
 	/*auto *playerRender = new ImageRender(gameState.player.getTransformMut());*/
-	auto *playerRender = new ImagePixelsRender(gameState.player.getTransformMut());
-	playerRender->loadImage("D:/projects/GraphicsV1/images/basket.bmp");
-	playerRender->fitImageSize();
+	auto *playerRender = new ObjRender(gameState.player.getTransformMut());
+	/*playerRender->loadImage("D:/projects/GraphicsV1/images/basket.bmp");
+	playerRender->fitImageSize();*/
+	playerRender->loadObj("D:/projects/GraphicsV1/objects/Apple/apple.obj");
 	gameState.player.setRender(std::unique_ptr<IRender>(playerRender));
 
 	gameState.player.getColliderMut().fitSize(glm::tvec2<float>(playerRender->getSize().x, playerRender->getSize().y / 3));
@@ -46,7 +54,7 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 	gameState.bottom.getColliderMut().setRightTopCornerLocal(glm::tvec2<float>(wndSize.x, 1));
 	
 	//auto * livesUIRender = new UITextRender();
-	auto * livesUIRender = new UIPixelsTextRender();
+	auto * livesUIRender = new UITextRender();
 	livesUIRender->setLeft(10);
 	livesUIRender->setTop(10);
 	livesUIRender->setText(std::to_string(gameState.getLives()) + " lives");
@@ -183,7 +191,7 @@ void CGame::handleFruitsMove()
 			it = gameState.dropItems.erase(it);
 			gameState.decLive();
 			//dynamic_cast<UITextRender*>(gameState.livesUI.getRenderMut())->setText(std::to_string(gameState.getLives()) + " lives");
-			dynamic_cast<UIPixelsTextRender*>(gameState.livesUI.getRenderMut())->setText(std::to_string(gameState.getLives()) + " lives");
+			dynamic_cast<UITextRender*>(gameState.livesUI.getRenderMut())->setText(std::to_string(gameState.getLives()) + " lives");
 			return;
 		}
 		it++;

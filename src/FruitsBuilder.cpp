@@ -11,19 +11,19 @@ void FruitsBuilder::spawnRandomFruit()
 	spawnFruit(x, this->imagePaths[i]);
 }
 
-void FruitsBuilder::spawnFruit(float xPos, std::string imagePath)
+void FruitsBuilder::spawnFruit(float xPos, std::string objPath)
 {
-	std::unique_ptr<GameObject> dropItem(new GameObject());
-	//auto * imgRender = new ImageRender(dropItem->getTransformMut());
-	auto * imgRender = new ImagePixelsRender(dropItem->getTransformMut());
-	imgRender->loadImage(imagePath);
-	imgRender->fitImageSize();
-	dropItem->setRender(std::unique_ptr<IRender>(imgRender));
+	//std::unique_ptr<GameObject> dropItem(new GameObject());
+	//auto * objRender = new ObjRender(dropItem->getTransformMut());
+	///*imgRender->loadImage(imagePath);
+	//imgRender->fitImageSize();*/
+	//objRender->loadObj(objPath);
+	//dropItem->setRender(std::unique_ptr<IRender>(objRender));
 
-	auto size = imgRender->getSize();
-	dropItem->getColliderMut().fitSize(size);
+	//auto size = objRender->getSize();
+	//dropItem->getColliderMut().fitSize(size);
 
-	dropItem->getTransformMut().setPosition(glm::tvec2<float>(xPos, ySpawn));
+	//dropItem->getTransformMut().setPosition(glm::tvec2<float>(xPos, ySpawn));
 
-	this->gameObjects.push_back(std::move(dropItem));
+	//this->gameObjects.push_back(std::move(dropItem));
 }

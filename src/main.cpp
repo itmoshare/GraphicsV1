@@ -1,4 +1,6 @@
+﻿#include <GL/glew.h>
 #include "windows.h"
+
 #include "CGame.h"
 #include <ctime>
 

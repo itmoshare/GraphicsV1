@@ -8,7 +8,7 @@
 #include <memory>
 #include "windows.h"
 #include "Colliders/BoxCollider.h"
-#include "Renders/ImageRender.h"
+#include "Renders/ObjRender.h"
 #include "Transform.h"
 #include <glm/vec2.hpp>
 

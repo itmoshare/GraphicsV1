@@ -77,9 +77,10 @@
       <SDLCheck>true</SDLCheck>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <MinimalRebuild>false</MinimalRebuild>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>msimg32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>msimg32.lib;glew32.lib;glu32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -116,20 +117,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\..\src\eggsFall.frag" />
+    <None Include="..\..\src\eggsFall.vert" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\lib\tinyobjloader\tiny_obj_loader.h" />
     <ClInclude Include="..\..\src\CGame.h" />
     <ClInclude Include="..\..\src\Colliders\BoxCollider.h" />
     <ClInclude Include="..\..\src\FruitsBuilder.h" />
     <ClInclude Include="..\..\src\FruitsController.h" />
     <ClInclude Include="..\..\src\GameObject.h" />
     <ClInclude Include="..\..\src\GameState.h" />
+    <ClInclude Include="..\..\src\LoadShaders.h" />
     <ClInclude Include="..\..\src\Renders\Camera.h" />
-    <ClInclude Include="..\..\src\Renders\ImagePixelsRender.h" />
-    <ClInclude Include="..\..\src\Renders\ImageRender.h" />
+    <ClInclude Include="..\..\src\Renders\ObjRender.h" />
     <ClInclude Include="..\..\src\Renders\IRender.h" />
-    <ClInclude Include="..\..\src\Renders\UIPixelsTextRender.h" />
     <ClInclude Include="..\..\src\Renders\UITextRender.h" />
     <ClInclude Include="..\..\src\Transform.h" />
     <ClInclude Include="..\..\src\UserInput.h" />
@@ -143,9 +146,7 @@
     <ClCompile Include="..\..\src\GameState.cpp" />
     <ClCompile Include="..\..\src\main.cpp" />
     <ClCompile Include="..\..\src\Renders\Camera.cpp" />
-    <ClCompile Include="..\..\src\Renders\ImagePixelsRender.cpp" />
-    <ClCompile Include="..\..\src\Renders\ImageRender.cpp" />
-    <ClCompile Include="..\..\src\Renders\UIPixelsTextRender.cpp" />
+    <ClCompile Include="..\..\src\Renders\ObjRender.cpp" />
     <ClCompile Include="..\..\src\Renders\UITextRender.cpp" />
     <ClCompile Include="..\..\src\Transform.cpp" />
     <ClCompile Include="..\..\src\UserInput.cpp" />
