@@ -17,11 +17,11 @@ public:
 
     bool init(HWND hwnd, HINSTANCE hinst); // Init the game application
     void StartLoop(); // Run the game
-	void CGame::frameTick();
+	void frameTick();
 
-	void CGame::handleFruitsSpawn(const int32_t frame);
-	void CGame::handleFruitsMove();
-	void CGame::handleFruitsSpeed(const int32_t frame);
+	void handleFruitsSpawn(const int32_t frame);
+	void handleFruitsMove();
+	void handleFruitsSpeed(const int32_t frame);
 
 private:
     void handleUserInput();
