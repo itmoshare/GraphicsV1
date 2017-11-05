@@ -13,10 +13,8 @@
 
 // Constructor
 CGame::CGame() : fruitsBuilder(gameState.dropItems, 
-{ 
-	"D:/projects/GraphicsV1/images/fruit_1.bmp", 
-	"D:/projects/GraphicsV1/images/watermelon.bmp",
-	"D:/projects/GraphicsV1/images/pear.bmp"
+{
+	{ "D:/projects/GraphicsV1/objects/Apple/apple.obj", "D:/projects/GraphicsV1/objects/Apple/Maps/skin.bmp", glm::vec3(0.5f, 0.5f, 0.5f) }
 })
 {
 }
@@ -27,7 +25,7 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 		return false;
 
 	gameState.mainCamera.initialize(hwnd);
-	gameState.mainCamera.setBackBrush(CreateSolidBrush(RGB(0, 200, 200)));
+	gameState.mainCamera.setBackBrush(CreateSolidBrush(RGB(255, 250, 205)));
 	auto wndSize = gameState.mainCamera.getSize();
 	gameState.mainCamera.setProjectionMatrix(glm::perspective(glm::radians(45.0f), wndSize.x / (float)wndSize.y, 550.0f, 650.0f));
 	gameState.mainCamera.setViewMatrix(glm::lookAt(
@@ -40,8 +38,6 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 	auto *playerRender = new ObjRender(gameState.player.getTransformMut());
 	/*playerRender->loadImage("D:/projects/GraphicsV1/images/basket.bmp");
 	playerRender->fitImageSize();*/
-	/*playerRender->loadObj("D:/projects/GraphicsV1/objects/Apple/apple.obj");
-	playerRender->loadBmp("D:/projects/GraphicsV1/objects/Apple/Maps/skin.bmp");*/
 	playerRender->loadObj("D:/projects/GraphicsV1/objects/Basket/basket.obj");
 	playerRender->loadBmp("D:/projects/GraphicsV1/objects/Basket/wicker.bmp");
 	playerRender->setScale(glm::vec3(0.5f, 0.5f, 0.5f));
