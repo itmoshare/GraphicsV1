@@ -10,6 +10,7 @@
 #include <memory>
 #include <glm/glm.hpp>
 #include <string>
+#include "HitpointsController.h"
 
 // Constructor
 CGame::CGame() : fruitsBuilder(gameState.dropItems, 
@@ -43,19 +44,18 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 	gameState.player.setRender(std::unique_ptr<IRender>(playerRender));
 
 	gameState.player.getColliderMut().fitSize(glm::tvec2<float>(playerRender->getSize().x, playerRender->getSize().y / 3));
-	gameState.player.getTransformMut().setPosition(glm::tvec2<float>(wndSize.x / 2, playerRender->getSize().y / 2));
+	gameState.player.getTransformMut().setPosition(glm::tvec3<float>(wndSize.x / 2, playerRender->getSize().y / 2, 0));
 
-	gameState.bottom.getTransformMut().setPosition(glm::tvec2<float>(0, -25));
+	gameState.bottom.getTransformMut().setPosition(glm::tvec3<float>(0, -25, 0));
 	gameState.bottom.getColliderMut().setLeftDownCornerLocal(glm::tvec2<float>(0, 0));
 	gameState.bottom.getColliderMut().setRightTopCornerLocal(glm::tvec2<float>(wndSize.x, 1));
 	
-	//auto * livesUIRender = new UITextRender();
-	auto * livesUIRender = new UITextRender();
-	livesUIRender->setLeft(10);
-	livesUIRender->setTop(10);
-	livesUIRender->setText(std::to_string(gameState.getLives()) + " lives");
-	gameState.livesUI.setRender(std::unique_ptr<IRender>(livesUIRender));
-
+	Transform t;
+	t.setPosition(glm::vec3(0, 400, 1));
+	auto hitPointsRender = new HitpointsController(std::move(t));
+	hitPointsRender->init(5);
+	gameState.hitpoints.setRender(std::unique_ptr<IRender>(hitPointsRender));
+	
 	fruitsBuilder.setMinX(50);
 	fruitsBuilder.setMaxX((float)wndSize.x - 50);
 	fruitsBuilder.setYSpawn((float)wndSize.y + 50);
@@ -106,7 +106,7 @@ void CGame::StartLoop()
 			{
 				dropItem->getRender()->render(gameState.mainCamera);
 			}
-			gameState.livesUI.getRender()->render(gameState.mainCamera);
+			gameState.hitpoints.getRender()->render(gameState.mainCamera);
 			gameState.mainCamera.endRender();
 		}
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
@@ -129,7 +129,7 @@ void CGame::handleUserInput()
 	else if (UserInput::IsKeyDown(VK_RIGHT)) {
 		if (gameState.player.getCollider().getRightTopCornerGlobal().x < gameState.mainCamera.getSize().x)
 		{
-			gameState.player.getTransformMut().movePosition(glm::tvec2<float>(7, 0));
+			gameState.player.getTransformMut().movePosition(glm::tvec3<float>(7, 0, 0));
 		}
 	}
 	else if (UserInput::IsKeyDown(VK_DOWN)) {
@@ -138,7 +138,7 @@ void CGame::handleUserInput()
 	else if (UserInput::IsKeyDown(VK_LEFT)) {
 		if (gameState.player.getCollider().getLeftDownCornerGlobal().x > 0)
 		{
-			gameState.player.getTransformMut().movePosition(glm::tvec2<float>(-7, 0));
+			gameState.player.getTransformMut().movePosition(glm::tvec3<float>(-7, 0, 0));
 		}
 	}
 
@@ -175,7 +175,7 @@ void CGame::handleFruitsMove()
 	auto it = gameState.dropItems.begin();
 	while (it != gameState.dropItems.end())
 	{
-		it->get()->getTransformMut().movePosition(glm::tvec2<float>(0, -gameState.fallSpeed));
+		it->get()->getTransformMut().movePosition(glm::tvec3<float>(0, -gameState.fallSpeed, 0));
 		auto collider = it->get()->getCollider();
 		if (BoxCollider::areIntersect(collider, gameState.player.getCollider()))
 		{
@@ -186,8 +186,7 @@ void CGame::handleFruitsMove()
 		{
 			it = gameState.dropItems.erase(it);
 			gameState.decLive();
-			//dynamic_cast<UITextRender*>(gameState.livesUI.getRenderMut())->setText(std::to_string(gameState.getLives()) + " lives");
-			dynamic_cast<UITextRender*>(gameState.livesUI.getRenderMut())->setText(std::to_string(gameState.getLives()) + " lives");
+			dynamic_cast<HitpointsController*>(gameState.hitpoints.getRenderMut())->dec();
 			return;
 		}
 		it++;

@@ -15,7 +15,7 @@ public:
 	using GameObjectList = std::list<std::unique_ptr<GameObject>>;
     GameObject player;
 	GameObject bottom;
-	GameObject livesUI;
+	GameObject hitpoints;
 	GameObjectList dropItems;
 	
 	Camera mainCamera;

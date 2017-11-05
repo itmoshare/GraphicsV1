@@ -10,17 +10,17 @@
 class Transform {
 public:
 	Transform() {};
-    glm::tvec2<float> movePosition(glm::tvec2<float> delta) { return setPosition(position + delta); }
+    glm::tvec3<float> movePosition(glm::tvec3<float> delta) { return setPosition(position + delta); }
 
-	const auto getPosition3() const { return glm::vec3(position.x, position.y, 0); }
-    const glm::tvec2<float> getPosition() const { return position; }
-    glm::tvec2<float> setPosition(glm::tvec2<float> value)
+    const auto getPosition() const { return position; }
+	const auto getPosition2() const { return glm::vec2(position.x, position.y); }
+    glm::tvec3<float> setPosition(glm::tvec3<float> value)
     {
-        position = value;
+		position = glm::vec3(value.x, value.y, 0);
         return position;
     }
 private:
-	glm::tvec2<float> position = { 0.0f, 0.0f };
+	glm::tvec3<float> position = { 0.0f, 0.0f, 0.0f };
 };
 
 

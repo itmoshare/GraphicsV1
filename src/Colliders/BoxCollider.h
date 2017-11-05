@@ -13,8 +13,8 @@ public:
 	const auto getRightTopCornerLocal() const { return rightTopCorner; }
 	void setRightTopCornerLocal(const glm::tvec2<float> value) { rightTopCorner = value; }
 
-	const auto getLeftDownCornerGlobal() const { return getLeftDownCornerLocal() + transfotm.getPosition(); }
-	const auto getRightTopCornerGlobal() const { return getRightTopCornerLocal() + transfotm.getPosition(); }
+	const auto getLeftDownCornerGlobal() const { return getLeftDownCornerLocal() + transfotm.getPosition2(); }
+	const auto getRightTopCornerGlobal() const { return getRightTopCornerLocal() + transfotm.getPosition2(); }
 
 	static bool areIntersect(const BoxCollider & a, const BoxCollider & b);
 

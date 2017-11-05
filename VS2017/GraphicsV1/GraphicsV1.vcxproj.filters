@@ -75,6 +75,9 @@
     <ClInclude Include="..\..\src\LoadShaders.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\src\HitpointsController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\src\Colliders\BoxCollider.cpp">
@@ -112,6 +115,9 @@
     </ClCompile>
     <ClCompile Include="..\..\src\Renders\ObjRender.cpp">
       <Filter>Source Files\Renders</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\src\HitpointsController.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
