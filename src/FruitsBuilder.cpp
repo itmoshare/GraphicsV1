@@ -18,6 +18,7 @@ void FruitsBuilder::spawnFruit(float xPos, FruitDescription fruitDescription)
 	objRender->loadObj(fruitDescription.modelPath);
 	objRender->loadBmp(fruitDescription.texturePath);
 	objRender->setScale(fruitDescription.scale);
+	objRender->fitSize();
 	dropItem->setRender(std::unique_ptr<IRender>(objRender));
 
 	auto size = objRender->getSize();

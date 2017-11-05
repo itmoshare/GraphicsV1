@@ -17,10 +17,12 @@
 #include <cstdio>
 #include <fstream>
 #include <iostream>
+#include <algorithm>
 
 class ObjRender : public IRender {
 public:
     ObjRender(const Transform & position);
+	~ObjRender();
     const auto & getObjPath() const
     {
         return objPath;
@@ -32,6 +34,7 @@ public:
 	void setSize(glm::tvec2<int32_t> value) { size = value; }
 	void setScale(glm::tvec3<float> value) { scale = glm::scale(value); }
 	const auto & getSize() const { return size; }
+	void fitSize();
 private:
     const Transform & transform;
 	glm::tvec2<int32_t> size;
@@ -49,23 +52,6 @@ private:
 		std::vector<glm::vec2> & out_uvs,
 		std::vector<glm::vec3> & out_normals
 	);
-
-	void fitSize()
-	{
-		float minX = std::numeric_limits<float>::max(), maxX = std::numeric_limits<float>::min();
-		float minY = std::numeric_limits<float>::max(), maxY = std::numeric_limits<float>::min();
-		float minZ = std::numeric_limits<float>::max(), maxZ = std::numeric_limits<float>::min();
-		for (int i = 0; i < vertices.size(); i++)
-		{
-			auto pos = glm::vec3(glm::mat3(scale) * vertices[i]);
-			if (pos.x > maxX) maxX = pos.x;
-			if (pos.x < minX) minX = pos.x;
-			if (pos.y > maxY) maxY = pos.y;
-			if (pos.y < minY) minY = pos.y;
-			if (pos.z > maxZ) maxZ = pos.z;
-			if (pos.z < minZ) minZ = pos.z;
-		}
-	};
 
 	GLuint vertexbuffer;
 	GLuint uvbuffer;
