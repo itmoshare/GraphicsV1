@@ -24,7 +24,11 @@ void ObjRender::loadObj(std::string path)
 	glGenBuffers(1, &normalbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
 	glBufferData(GL_ARRAY_BUFFER, normals.size() * sizeof(glm::vec3), &normals[0], GL_STATIC_DRAW);
+
+	fitSize();
 }
+
+
 
 void ObjRender::loadBmp(std::string path)
 {

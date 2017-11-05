@@ -14,7 +14,8 @@
 // Constructor
 CGame::CGame() : fruitsBuilder(gameState.dropItems, 
 {
-	{ "D:/projects/GraphicsV1/objects/Apple/apple.obj", "D:/projects/GraphicsV1/objects/Apple/Maps/skin.bmp", glm::vec3(0.5f, 0.5f, 0.5f) }
+	{ "D:/projects/GraphicsV1/objects/Apple/apple.obj", "D:/projects/GraphicsV1/objects/Apple/Maps/skin.bmp", glm::vec3(0.5f, 0.5f, 0.5f) },
+	{ "D:/projects/GraphicsV1/objects/Pear/pear.obj", "D:/projects/GraphicsV1/objects/Pear/Grusha_DIFFUSE.bmp", glm::vec3(0.5f, 0.5f, 0.5f) },
 })
 {
 }
@@ -34,14 +35,10 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 		glm::vec3(0, 1, 0)
 	));
 
-	/*auto *playerRender = new ImageRender(gameState.player.getTransformMut());*/
 	auto *playerRender = new ObjRender(gameState.player.getTransformMut());
-	/*playerRender->loadImage("D:/projects/GraphicsV1/images/basket.bmp");
-	playerRender->fitImageSize();*/
 	playerRender->loadObj("D:/projects/GraphicsV1/objects/Basket/basket.obj");
 	playerRender->loadBmp("D:/projects/GraphicsV1/objects/Basket/wicker.bmp");
 	playerRender->setScale(glm::vec3(0.5f, 0.5f, 0.5f));
-	//playerRender->loadBmp("D:/projects/GraphicsV1/objects/Apple/Maps/skin.bmp");
 
 	gameState.player.setRender(std::unique_ptr<IRender>(playerRender));
 
