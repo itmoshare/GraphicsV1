@@ -102,6 +102,7 @@ void CGame::StartLoop()
 			handleUserInput();
 			frameTick();
 
+			//moveCamera();
 			gameState.mainCamera.beginRender();
 			gameState.player.getRender()->render(gameState.mainCamera);
 			for (auto const &dropItem : gameState.dropItems)
@@ -170,6 +171,12 @@ void CGame::handleFruitsSpeed(const int32_t frame)
 	}
 	//gameState.spawnEvery = (int32_t)round(300 / (pow(frame, 0.2f) + 1));
 	//gameState.fallSpeed = gameState.maxFallSpeed / (gameState.maxFallSpeed - frame);
+}
+
+void CGame::moveCamera()
+{
+	auto projectionMatrix = glm::rotate(gameState.mainCamera.getProjectionMatrix(), 0.01f, glm::vec3(0, 1, 0));
+	gameState.mainCamera.setProjectionMatrix(projectionMatrix);
 }
 
 void CGame::handleFruitsMove()

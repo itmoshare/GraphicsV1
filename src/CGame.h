@@ -22,6 +22,7 @@ public:
 	void handleFruitsSpawn(const int32_t frame);
 	void handleFruitsMove();
 	void handleFruitsSpeed(const int32_t frame);
+	void moveCamera();
 
 private:
     void handleUserInput();
