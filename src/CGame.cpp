@@ -45,10 +45,10 @@ bool CGame::init(HWND hwnd, HINSTANCE hinst)
 
 	//gameState.player.getColliderMut().fitSize(glm::tvec2<float>(playerRender->getSize().x, playerRender->getSize().y / 3));
 	gameState.player.getColliderMut().setLeftDownCornerLocal(glm::vec2(-50, -35));
-	gameState.player.getColliderMut().setRightTopCornerLocal(glm::vec2(50, 35));
-	gameState.player.getTransformMut().setPosition(glm::tvec3<float>(wndSize.x / 2, playerRender->getSize().y / 2, 0));
+	gameState.player.getColliderMut().setRightTopCornerLocal(glm::vec2(50, 25));
+	gameState.player.getTransformMut().setPosition(glm::tvec3<float>(wndSize.x / 2, -playerRender->getLeftDownCorner().y, 0));
 
-	gameState.bottom.getTransformMut().setPosition(glm::tvec3<float>(0, -25, 0));
+	gameState.bottom.getTransformMut().setPosition(glm::tvec3<float>(0, -100, 0));
 	gameState.bottom.getColliderMut().setLeftDownCornerLocal(glm::tvec2<float>(0, 0));
 	gameState.bottom.getColliderMut().setRightTopCornerLocal(glm::tvec2<float>(wndSize.x, 1));
 	

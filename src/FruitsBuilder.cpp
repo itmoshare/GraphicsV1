@@ -21,8 +21,8 @@ void FruitsBuilder::spawnFruit(float xPos, FruitDescription fruitDescription)
 	objRender->fitSize();
 	dropItem->setRender(std::unique_ptr<IRender>(objRender));
 
-	auto size = objRender->getSize();
-	dropItem->getColliderMut().fitSize(size);
+	dropItem->getColliderMut().setLeftDownCornerLocal(objRender->getLeftDownCorner());
+	dropItem->getColliderMut().setRightTopCornerLocal(objRender->getRightTopCorner());
 
 	dropItem->getTransformMut().setPosition(glm::tvec3<float>(xPos, ySpawn, 0));
 

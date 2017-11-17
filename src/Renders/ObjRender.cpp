@@ -234,5 +234,6 @@ void ObjRender::fitSize()
 		if (pos.z > maxZ) maxZ = pos.z;
 		if (pos.z < minZ) minZ = pos.z;
 	}
-	size = glm::vec2(std::max(std::abs(maxX), std::abs(minX)), std::max(std::abs(maxY), std::abs(minY)));
+	leftDownCorner = glm::vec2(minX, minY);
+	rightTopCorner = glm::vec2(maxX, maxY);
 }

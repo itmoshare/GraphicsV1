@@ -31,13 +31,14 @@ public:
 	void loadBmp(std::string path);
     void render(const Camera & camera) const;
 
-	void setSize(glm::tvec2<int32_t> value) { size = value; }
 	void setScale(glm::tvec3<float> value) { scale = glm::scale(value); }
-	const auto & getSize() const { return size; }
+	const auto & getLeftDownCorner() const { return leftDownCorner; }
+	const auto & getRightTopCorner() const { return rightTopCorner; }
 	void fitSize();
 private:
     const Transform & transform;
-	glm::tvec2<int32_t> size;
+	glm::tvec2<int32_t> leftDownCorner;
+	glm::tvec2<int32_t> rightTopCorner;
 	glm::mat4 scale = glm::scale(glm::vec3(1, 1, 1));
 	std::string objPath;
 

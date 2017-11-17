@@ -17,8 +17,6 @@ public:
 	const auto getRightTopCornerGlobal() const { return getRightTopCornerLocal() + transfotm.getPosition2(); }
 
 	static bool areIntersect(const BoxCollider & a, const BoxCollider & b);
-
-	void fitSize(glm::tvec2<float> size);
 private:
 	const Transform & transfotm;
 
