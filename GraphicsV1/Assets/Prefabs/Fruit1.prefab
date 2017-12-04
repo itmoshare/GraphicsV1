@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 54145124592779362}
   m_Layer: 0
   m_Name: Fruit1
-  m_TagString: Untagged
+  m_TagString: Fruit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -83,7 +83,7 @@ Transform:
   m_GameObject: {fileID: 1161459994945240}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -8.363857, y: 4.6091633, z: -8.087326}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.09, y: 0.09, z: 0.09}
   m_Children:
   - {fileID: 4946101595247412}
   - {fileID: 4106436243134734}

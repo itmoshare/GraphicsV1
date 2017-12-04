@@ -9,15 +9,19 @@ public class FruitsSpawner : MonoBehaviour
     public GameObject[] Fruits;
     public BoxCollider SpawnArea;
 
+    public Vector3 gravity = new Vector3(0, -9.8f, 0);
+
     private Timer _timer;
     private Random _random = new Random();
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
+	    Physics.gravity = gravity;
+	    if (SpawnArea == null)
+	        throw new ArgumentException("SpawnArea is null");
         //_timer = new Timer(TimerCallback, null, TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(5));
 	    Invoke("TimerCallback", 5);
-        if (SpawnArea == null)
-            throw new ArgumentException("SpawnArea is null");
     }
 
     void TimerCallback()
