@@ -1,22 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class FruitsDestructor : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+public class FruitsDestructor : MonoBehaviour
+{
+    public event Action<bool> FruitDestroyed;
 
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Fruit"))
         {
-            GameObject.Destroy(other.gameObject);
+            Destroy(other.gameObject);
+            if (FruitDestroyed != null)
+                FruitDestroyed.Invoke(false);
         }
     }
 }

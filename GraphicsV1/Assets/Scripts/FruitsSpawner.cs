@@ -9,7 +9,7 @@ public class FruitsSpawner : MonoBehaviour
     public GameObject[] Fruits;
     public BoxCollider SpawnArea;
 
-    public Vector3 gravity = new Vector3(0, -9.8f, 0);
+    public float SpawnRate { get; set; }
 
     private Timer _timer;
     private Random _random = new Random();
@@ -17,11 +17,12 @@ public class FruitsSpawner : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-	    Physics.gravity = gravity;
 	    if (SpawnArea == null)
 	        throw new ArgumentException("SpawnArea is null");
         //_timer = new Timer(TimerCallback, null, TimeSpan.FromSeconds(2), TimeSpan.FromSeconds(5));
-	    Invoke("TimerCallback", 5);
+
+        SpawnRate = 5;
+        Invoke("TimerCallback", SpawnRate);
     }
 
     void TimerCallback()
@@ -30,7 +31,7 @@ public class FruitsSpawner : MonoBehaviour
         var y = SpawnArea.bounds.min.y + UnityRandom.value * SpawnArea.size.y;
         var z = SpawnArea.bounds.min.z + UnityRandom.value * SpawnArea.size.z;
         Instantiate(Fruits[_random.Next(Fruits.Length)], new Vector3(x, y, z), UnityRandom.rotation);
-        Invoke("TimerCallback", 5);
+        Invoke("TimerCallback", SpawnRate);
     }
 
     // Update is called once per frame
