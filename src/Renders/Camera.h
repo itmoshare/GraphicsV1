@@ -19,6 +19,8 @@ public:
 	void beginRender();
 	void endRender();
 
+	char * bytes;
+
 	const glm::tvec2<int32_t> transformGlobalToCamera(glm::tvec2<float> globalCoord) const;
 
 	~Camera();
@@ -26,10 +28,10 @@ private:
 	HWND hwnd;
 	HDC mainDC;
 	HDC backDC;
+	BITMAPINFO bitmapInfo;
 
 	glm::tvec2<int32_t> size;
 
 	HBRUSH backBrush;
 	void fillBackground() const;
-
 };

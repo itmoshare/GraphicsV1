@@ -102,7 +102,7 @@ void CGame::StartLoop()
 			{
 				dropItem->getRender()->render(gameState.mainCamera);
 			}
-			gameState.livesUI.getRender()->render(gameState.mainCamera);
+			//gameState.livesUI.getRender()->render(gameState.mainCamera);
 			gameState.mainCamera.endRender();
 		}
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));

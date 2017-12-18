@@ -33,27 +33,36 @@ void ImagePixelsRender::render(const Camera & camera) const
 	BITMAPINFO bitmapInfo = { 0 };
 	bitmapInfo.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 	bitmapInfo.bmiHeader.biBitCount = 24;
-	bitmapInfo.bmiHeader.biWidth = camera.getSize().x;
-	bitmapInfo.bmiHeader.biHeight = camera.getSize().y;
+	bitmapInfo.bmiHeader.biWidth = size.x;
+	bitmapInfo.bmiHeader.biHeight = size.y;
 	bitmapInfo.bmiHeader.biPlanes = 1;
-	bitmapInfo.bmiHeader.biCompression = 0;
+	bitmapInfo.bmiHeader.biCompression = BI_RGB;
 
-	unsigned char* bits = nullptr;
+	auto t = ((size.x * 24 + 31) / 32) * 4;
+	DWORD dwBmpSize = t * size.y;
+	unsigned char *bits = new unsigned char[dwBmpSize];
+	GetDIBits(camera.getMainDC(), image, 0, size.y, bits, &bitmapInfo, DIB_RGB_COLORS);
 
-	auto dibSection = CreateDIBSection(camera.getBackDC(), &bitmapInfo, DIB_RGB_COLORS, (VOID **)&bits, NULL, 0);
-	for (int i = 0; i < bitmapInfo.bmiHeader.biWidth * bitmapInfo.bmiHeader.biHeight * 3; i+=3)
-	{
-		bits[i] = 0;
-		bits[i + 1] = 255;
-		bits[i + 2] = 0;
-	}
+	for (int lx = 0; lx < bitmapInfo.bmiHeader.biWidth; lx++)
+		for (int ly = 0; ly < bitmapInfo.bmiHeader.biHeight; ly++)
+		{
+			int ax = transform.getPosition().x + lx;
+			int ay = transform.getPosition().y + ly;
 
-	auto hdcMem = CreateCompatibleDC(camera.getBackDC());
-	auto bmp = SelectObject(hdcMem, dibSection);
+			if (ax * 3 >= camera.getSize().x * 3 || 
+				ay * 3 >= camera.getSize().y * 3 ||
+				ax < 0 ||
+				ay < 0)
+				continue;
 
-	BitBlt(camera.getBackDC(), 0, 0, camera.getSize().x, camera.getSize().y, hdcMem, 0, 0, SRCCOPY);
+			int cameraPixel = ax * 3 + ay * camera.getSize().x * 3;
+			int imagePixel = lx * 3 + ly * t;
+			if (bits[imagePixel] == 0 && bits[imagePixel + 1] == 0 || bits[imagePixel + 2] == 0)
+				continue;
+			camera.bytes[cameraPixel] = bits[imagePixel];
+			camera.bytes[cameraPixel + 1] = bits[imagePixel + 1];
+			camera.bytes[cameraPixel + 2] = bits[imagePixel + 2];
+		}
 
-	DeleteObject(dibSection);
-	DeleteObject(hdcMem);
-	DeleteObject(bmp);
+	delete bits;
 }
